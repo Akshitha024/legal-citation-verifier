@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+title: lcg — Legal citation grounder
+authors:
+  - family-names: Lingampally
+    given-names: Akshitha Reddy
+type: software
+date-released: 2024-10-09
+repository-code: https://github.com/Akshitha024/legal-citation-grounder
+license: MIT
+references:
+  - type: article
+    title: "Attributable Language Models: Reducing Hallucination by Citing Sources"
+    authors: [{family-names: Bohnet, given-names: Bernd}]
+    year: 2023
+    url: https://arxiv.org/abs/2305.14908
+  - type: article
+    title: "FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation"
+    authors: [{family-names: Min, given-names: Sewon}]
+    year: 2023
+    url: https://arxiv.org/abs/2305.14251
+  - type: article
+    title: "CaseHOLD: A Dataset for Multiple Choice Legal Question Answering"
+    authors: [{family-names: Zheng, given-names: Lucia}]
+    year: 2021
+    url: https://arxiv.org/abs/2104.08671
