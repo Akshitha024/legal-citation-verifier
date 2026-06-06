@@ -1,0 +1,20 @@
+.............                                                            [100%]
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.11.14-final-0 _______________
+
+Name                           Stmts   Miss  Cover
+--------------------------------------------------
+src/lcg/__init__.py                1      0   100%
+src/lcg/claims/__init__.py         0      0   100%
+src/lcg/claims/decompose.py       48     10    79%
+src/lcg/cli/__init__.py            0      0   100%
+src/lcg/cli/main.py               76     76     0%
+src/lcg/nli/__init__.py            0      0   100%
+src/lcg/nli/scorer.py             33     13    61%
+src/lcg/types.py                  33      0   100%
+src/lcg/verifier/__init__.py       0      0   100%
+src/lcg/verifier/check.py         50      7    86%
+src/lcg/viz/__init__.py            0      0   100%
+src/lcg/viz/charts.py            207    207     0%
+--------------------------------------------------
+TOTAL                            448    313    30%
