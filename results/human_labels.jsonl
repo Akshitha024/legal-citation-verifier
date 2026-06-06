@@ -1,0 +1,11 @@
+{"qid": "c1", "claim_idx": 0, "human_flagged": false}
+{"qid": "c1", "claim_idx": 1, "human_flagged": false}
+{"qid": "c1", "claim_idx": 2, "human_flagged": false}
+{"qid": "c2", "claim_idx": 0, "human_flagged": false}
+{"qid": "c2", "claim_idx": 1, "human_flagged": false}
+{"qid": "c3", "claim_idx": 0, "human_flagged": true}
+{"qid": "c4", "claim_idx": 0, "human_flagged": false}
+{"qid": "c4", "claim_idx": 1, "human_flagged": false}
+{"qid": "c4", "claim_idx": 2, "human_flagged": false}
+{"qid": "c5", "claim_idx": 0, "human_flagged": false}
+{"qid": "c5", "claim_idx": 1, "human_flagged": false}

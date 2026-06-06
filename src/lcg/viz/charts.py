@@ -226,3 +226,47 @@ def plot_verifier_confusion(
     fig.savefig(out, dpi=160)
     plt.close(fig)
     return out
+
+
+# 6 (alt). Per-claim entailment bar chart - flagged claims highlighted
+def plot_claim_entailment_bars(verdicts_path: Path, out: Path) -> Path:
+    out.parent.mkdir(parents=True, exist_ok=True)
+    if not verdicts_path.exists():
+        out.write_bytes(b"")
+        return out
+    rows = _read_jsonl(verdicts_path)
+    if not rows:
+        out.write_bytes(b"")
+        return out
+
+    labels: list[str] = []
+    scores: list[float] = []
+    colors: list[str] = []
+    for r in rows:
+        qid = r["qid"]
+        for c in r["per_claim"]:
+            short = (c["claim_text"][:30] + "...") if len(c["claim_text"]) > 30 else c["claim_text"]
+            labels.append(f"{qid}/{c['claim_idx']}: {short}")
+            scores.append(float(c["entailment"]))
+            if c["flagged"]:
+                colors.append("#d62728")
+            elif c["cited_supports"]:
+                colors.append("#2ca02c")
+            else:
+                colors.append("#1f77b4")
+
+    fig, ax = plt.subplots(figsize=(10, max(4, 0.3 * len(labels))))
+    y = np.arange(len(labels))
+    ax.barh(y, scores, color=colors)
+    ax.axvline(0.5, color="gray", linestyle=":", linewidth=1, label="threshold = 0.5")
+    ax.set_yticks(y)
+    ax.set_yticklabels(labels, fontsize=7)
+    ax.set_xlabel("max entailment over cited sources")
+    ax.set_xlim(0, 1)
+    ax.set_title("Per-claim cited-source entailment (red = flagged, green = supported)")
+    ax.legend(fontsize=8, loc="lower right")
+    ax.invert_yaxis()
+    fig.tight_layout()
+    fig.savefig(out, dpi=160)
+    plt.close(fig)
+    return out

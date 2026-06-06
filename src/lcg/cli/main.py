@@ -13,6 +13,7 @@ from ..nli.scorer import HeuristicNLI, NLIHead
 from ..types import CitedAnswer, Claim, Source
 from ..verifier.check import Verifier
 from ..viz.charts import (
+    plot_claim_entailment_bars,
     plot_claim_outcomes,
     plot_entailment_heatmap,
     plot_flag_trend,
@@ -129,6 +130,7 @@ def cmd_plots(
 ) -> None:
     plot_claim_outcomes(verdicts, out_dir / "claim_outcomes.png")
     plot_precision_recall_scatter(verdicts, out_dir / "precision_recall.png")
+    plot_claim_entailment_bars(verdicts, out_dir / "claim_entailment_bars.png")
     if history.exists():
         hist = json.loads(history.read_text())
         plot_flag_trend(hist, out_dir / "flag_trend.png")

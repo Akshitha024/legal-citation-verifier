@@ -1,0 +1,9 @@
+{
+  "run_id": "latest",
+  "answers": 5,
+  "claims": 11,
+  "flagged": 6,
+  "hallucination_rate": 0.5454545454545454,
+  "macro_citation_precision": 0.5333333333333333,
+  "macro_citation_recall": 0.5333333333333333
+}
