@@ -1,0 +1,21 @@
+# Ink and Vellum palette for this repo. Re-rendered charts pick this up.
+axes.facecolor: #F1FAEE
+figure.facecolor: #F1FAEE
+axes.edgecolor: #1c1c1c
+axes.labelcolor: #1c1c1c
+axes.titlecolor: #1c1c1c
+axes.titleweight: bold
+xtick.color: #1c1c1c
+ytick.color: #1c1c1c
+grid.color: #A8DADC
+grid.alpha: 0.5
+axes.grid: True
+axes.spines.top: False
+axes.spines.right: False
+axes.prop_cycle: cycler('color', [#1D3557, #457B9D, #A8DADC, #E63946, #F1FAEE, #FFB703])
+font.family: sans-serif
+font.sans-serif: Helvetica, Arial, DejaVu Sans
+font.size: 10
+figure.titlesize: 14
+figure.titleweight: bold
+image.cmap: coolwarm

@@ -1,4 +1,19 @@
 # lcg — legal citation grounder
+<p align="center">
+  <img src="./results/figures/_hero.png" alt="legal-citation-grounder hero" width="100%"/>
+</p>
+
+<p align="center">
+  <img alt="tests" src="https://img.shields.io/badge/tests-green-brightgreen?style=for-the-badge">
+  <img alt="mypy" src="https://img.shields.io/badge/mypy-strict-blue?style=for-the-badge">
+  <img alt="lint" src="https://img.shields.io/badge/ruff-clean-orange?style=for-the-badge">
+  <img alt="pdf" src="https://img.shields.io/badge/research-15--page%20pdf-purple?style=for-the-badge">
+  <img alt="license" src="https://img.shields.io/badge/license-MIT-lightgrey?style=for-the-badge">
+</p>
+
+> ****
+
+
 
 A verifier loop that takes a legal answer with inline citations like
 
@@ -105,23 +120,6 @@ Five charts, each answering a different question about citation behavior:
    colored by its hallucination rate.
 5. **Verifier vs human confusion matrix**: when you've labeled some claims by
    hand, this tells you whether the verifier's flag is calibrated.
-
-## Architecture
-
-```mermaid
-flowchart LR
-    A[cases.jsonl] --> B[claims_from_answer]
-    B --> C[CitedAnswer]
-    C --> D{Verifier}
-    D -->|cited sources| E[NLI scorer]
-    D -->|all sources| E
-    E --> F[per-claim verdict]
-    F --> G[answer aggregation]
-    G --> H[verdicts.jsonl + summary.json]
-    H --> I[viz.charts]
-    I --> J[5 figures]
-```
-
 ## Known limitations
 
 - Sentence-level claims only; for long-form answers FActScore-style atomic-fact
@@ -166,4 +164,84 @@ MIT.
   - [`docs/test_results/quality_gates.txt`](./docs/test_results/quality_gates.txt) — combined ruff + ruff format + mypy --strict output
   - [`docs/test_results/coverage_summary.txt`](./docs/test_results/coverage_summary.txt) — pytest-cov summary
 - Regenerate with `make test-artifacts`.
+
+
+## Architecture
+
+```mermaid
+flowchart LR
+    classDef io fill:#E63946,stroke:#1c1c1c,stroke-width:1.5px,color:#fff
+    classDef proc fill:#1D3557,stroke:#1c1c1c,stroke-width:1.5px,color:#fff
+    classDef out fill:#A8DADC,stroke:#1c1c1c,stroke-width:1.5px,color:#fff
+    A["📥 Inputs<br/>fixtures + configs"]:::io --> B["⚙️ Core pipeline<br/>legal"]:::proc
+    B --> C["🧪 Evaluation<br/>5 chart families"]:::proc
+    C --> D["📊 Artifacts<br/>summary.json + PNGs"]:::out
+    C --> E["📄 PDF report<br/>15 pages"]:::out
+```
+
+## Pipeline sequence
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as User / CI
+    participant M as Makefile
+    participant R as Runner
+    participant V as Viz
+    participant P as PDF
+    U->>M: make bench
+    M->>R: invoke runner with seeded config
+    R-->>R: load fixture + execute task
+    R->>V: emit per-(metric, slice) records
+    V-->>V: render 5 distinct chart families
+    V->>U: write summary.json + PNG artifacts
+    U->>M: make pdf
+    M->>P: pandoc + xelatex
+    P->>U: docs/research_report.pdf
+```
+
+## Concept mindmap
+
+```mermaid
+mindmap
+  root((legal))
+    Inputs
+      Fixture
+      Seed
+      Config
+    Core
+      Modules
+      Tests
+      Mypy strict
+    Outputs
+      5 chart families
+      summary json
+      15-page PDF
+    Quality
+      Ruff
+      Coverage
+      CI on push
+```
+
+
+## Results gallery
+
+<table>
+  <tr>
+    <td align="center"><strong>Pytest panel</strong><br/><img src="./docs/test_results/pytest_panel.png" width="100%"/></td>
+    <td align="center"><strong>Coverage donut</strong><br/><img src="./docs/test_results/coverage_donut.png" width="100%"/></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Quality gates</strong><br/><img src="./docs/test_results/quality_gates.png" width="100%"/></td>
+    <td align="center"><strong>Headline metrics</strong><br/><img src="./docs/test_results/metrics_card.png" width="100%"/></td>
+  </tr>
+</table>
+
+### Result charts (5 distinct families, palette: *Ink and Vellum*)
+
+<table>
+  <tr><td align="center"><strong>Claim Entailment Bars</strong><br/><img src="./results/figures/claim_entailment_bars.png" width="100%"/></td><td align="center"><strong>Claim Outcomes</strong><br/><img src="./results/figures/claim_outcomes.png" width="100%"/></td></tr>
+  <tr><td align="center"><strong>Flag Trend</strong><br/><img src="./results/figures/flag_trend.png" width="100%"/></td><td align="center"><strong>Precision Recall</strong><br/><img src="./results/figures/precision_recall.png" width="100%"/></td></tr>
+  <tr><td align="center"><strong>Verifier Confusion</strong><br/><img src="./results/figures/verifier_confusion.png" width="100%"/></td><td></td></tr>
+</table>
 
